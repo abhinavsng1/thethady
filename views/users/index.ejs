@@ -1,0 +1,259 @@
+<% include ../partials/header %> 
+
+<style>
+body{
+    background-color: #83d7fe;
+}
+.thumbnail{
+  background:#EEEEEE;
+}
+.btn-danger{
+  margin-left:1em;
+}
+.btn-warning{
+  margin-left:1em;
+}
+.a1{
+  margin-left:1em;
+}
+.glyphicon{
+  color:orange;
+}
+.page{
+  
+  position:inherit;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  margin-top:10px;
+  color: white;
+  text-align: center;
+}
+}
+
+.modal{
+display: none;
+position: fixed;
+z-index: 1;
+left: 0;
+top: 0;
+height: 100%;
+width: 100%;
+overflow: auto;
+background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content{
+margin: 10% auto;
+width: 60%;
+box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+animation-name: modalopen;
+animation-duration: var(--modal-duration);
+}
+
+
+
+.modal-header{
+background: #191919;
+font-size: 15px;
+color: white;
+border-top-left-radius: 5px;
+border-top-right-radius: 5px;
+height: 50px;
+
+}
+
+.modal-body{
+padding: 10px 20px;
+background: #eeeeee;
+color: black;
+}
+
+
+
+.close{
+color: #ccc;
+float: right;
+font-size: 30px;
+color: #000000;
+padding-top: 10px;
+}
+
+.close:hover,
+.close,.close1:focus {
+color: #fff;
+text-decoration: none;
+cursor: pointer;
+}
+
+@keyframes modalopen {
+from {
+  opacity: 0;
+}
+to {
+  opacity: 1;
+}
+}
+
+
+img#mobile{
+  width: 300px;
+  height: 400px;
+}
+.search
+</style>
+     <header class="jumbotron">
+         <div class="container">
+             <h1><span class="glyphicon glyphicon-fire"></span> BONJOUR!</h1>
+             <p>WELCOME TO THE COMMUNITY</p>
+
+             <table>
+             <tr>
+             <td><a href="http://parodychat.herokuapp.com/" class="btn btn-primary btn-lg">MOVE TO CHATROOM</a></td><td></td>
+             <td>
+             
+             </div>
+             </td>
+
+             </tr>
+
+             </table>
+             
+
+         </div>
+     </header>
+     
+     <div class="row">
+  <% users.forEach(function(user){ %>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="../../uploads/<%=user.profileimage%>" >
+      <div class="caption"><div class="a1">
+        <h3><%=user.name%></h3>
+        <p><b><i>Batch of </i></b><%= user.batchof%></p>
+        <p><b><i>Bio </i></b><%= user.bio%></p>
+        <p><b><i>Relationship Status </i></b><%= user.status%></p></div>
+        <p><a href="/users/1/<%=user._id %>" class="btn btn-danger" role="button">Say Anything</a><a href="/users/1/<%=user._id %>" class="btn btn-warning" role="button">Ask Anything</a></p>
+      </div>
+    </div>
+  </div>
+   <% }); %>
+   </div>
+
+   <div class="page">
+   
+            <% if (pages > 0) { %>
+                <ul class="pagination text-center">
+                    <% if (current == 1) { %>
+                        <li class="disabled"><a>First</a></li>
+                    <% } else { %>
+                        <li><a href="/users/1">First</a></li>
+                    <% } %>
+                    <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                    <% if (i !== 1) { %>
+                        <li class="disabled"><a>...</a></li>
+                    <% } %>
+                    <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                        <% if (i == current) { %>
+                            <li class="active"><a><%= i %></a></li>
+                        <% } else { %>
+                            <li><a href="/users/<%= i %>"><%= i %></a></li>
+                        <% } %>
+                        <% if (i == Number(current) + 4 && i < pages) { %>
+                            <li class="disabled"><a>...</a></li>
+                        <% } %>
+                    <% } %>
+                    <% if (current == pages) { %>
+                        <li class="disabled"><a>Last</a></li>
+                    <% } else { %>
+                        <li><a href="/users/<%= pages %>">Last</a></li>
+                    <% } %>
+                </ul>
+            <% } %>
+    
+            </div>
+    </div>
+
+     
+</div>
+
+
+
+<div id="my-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <p>Search</p>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+
+
+      <table>
+      <tr>
+      <td><img src="/../../search.jpg" id="mobile" class="img-fluid d-lg-none d-xl-block" ></td>
+      <td class="search1">
+      <h1><span class="glyphicon glyphicon-fire"></span> SEARCH</h1>
+      <form action="/users/1" action="GET" class="form-inline">
+      <div class="form-group">
+      <input type="text" name="search" placeholder="Search name" class="form-control">
+      <input type="submit" value="search" class="btn btn-danger">
+
+
+      </div>
+
+
+      </form>
+       
+
+
+      </td>
+
+      </tr>
+
+      </table>
+         
+      </div>
+     
+    </div>
+  </div>
+
+ <script>
+
+// Get DOM Elements
+const modal = document.querySelector('#my-modal');
+const modalBtn = document.querySelector('#modal-btn');
+const closeBtn = document.querySelector('.close');
+
+// Events
+modalBtn.addEventListener('click', openModal);
+closeBtn.addEventListener('click', closeModal);
+window.addEventListener('click', outsideClick);
+
+// Open
+function openModal() {
+  modal.style.display = 'block';
+}
+
+// Close
+function closeModal() {
+  modal.style.display = 'none';
+}
+
+// Close If Outside Click
+function outsideClick(e) {
+  if (e.target == modal) {
+    modal.style.display = 'none';
+  }
+}
+
+    </script>
+
+
+    <script>
+
+ 
+  
+
+<% include ../partials/footer %>
+

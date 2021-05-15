@@ -1,0 +1,119 @@
+<% include ../partials/header %>
+   <style>
+   body{
+    background-color: #83d7fe;
+}
+
+   .a1{
+   width:250px;
+   min-height:250px;
+    border:0px solid white;
+    border-radius:50%; 
+   }
+   .a2{
+   font
+   }
+.a3{
+    background:#EEEEEE;
+    margin-top:1.5em;
+    width:100%;
+    font-color:white;
+}
+ .a4{
+ paddind:0.25;
+  background-color:#EEEEEE;
+  line-height:0.25em;
+  font-color:#FFFFFF;
+}
+.btn-success{
+  width:fit-content;
+}
+</style>
+
+   <div class="row">
+   <div class="col-md-3">
+   <img src="../../uploads/<%=user.profileimage%>" class="img-circle a1">
+
+   </div>
+   <div class="col-md-9">
+
+  <form action="/users/1/<%= user._id %>?_method=PUT" method="POST">
+  <div class="form-group">
+  <b>Name:</b>
+                    <input class="form-control" type="text" name="user[name]" value="<%= user.name %>">
+  </div>
+
+   <div class="form-group">
+                    <b>BatchOf:</b>
+                    <input class="form-control" type="text" name="user[batchof]" value="<%=user.batchof%>">
+                </div>
+
+                <div class="form-group">
+                  <b>Status:</b>
+                    <input class="form-control" type="text" name="user[status]" value="<%=user.status%>" disabled>
+                </div>
+
+
+                <div class="form-group">
+                <b>Bio:</b>
+                    <input class="form-control" type="text" name="user[bio]" value="<%=user.bio%>">
+                </div>
+
+                  <div class="form-group">
+                    <b>Instagram Id:</b>
+                    <input class="form-control" type="text" name="user[insta]" value="<%=user.insta%>">
+                </div>
+                 <%if(currentUser && currentUser.username===user.username){%>
+
+                 <div>
+                    <button class="btn btn-lg btn-success btn-sm">Update</button>
+                     <button class="btn btn-lg btn-primary btn-sm" href="/users">Cancel</button>
+                </div>   
+                <%}%>    
+
+   </div>
+   </form>
+
+   </div>
+    <hr>
+      
+      <div class="well">
+      <div class="a4">
+      <h3><b>//ASK//SAY//CONFESS// </b></h3>
+      <p>You can be anonymous or brave</p>
+      </div>
+      <div class="text-right">
+                    <a class="btn btn-danger" href="/users/1/<%= user._id %>/comments/new">Say anything</a>
+                    <a class="btn btn-warning" href="/users/1/<%= user._id %>/comments/new">Ask Anything</a>
+                </div>
+
+
+
+     <% user.comments.forEach(function(comment){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= comment.author.username %></strong>
+                            
+                       <div>
+                           <%= comment.text %> 
+
+                            <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                                <form style="display: inline" class="pull-right" action="/users/1/<%=user._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                                    <button class="btn btn-xs btn-danger">DELETE</button>
+                                    <a href="/users/1/<%=user._id%>/comments/<%=comment._id%>/edit" class="btn btn-xs btn-info">EDIT</a>
+                                </form>
+                            <% } %> 
+
+                          </div>
+                           </div> 
+                          </div>
+                          <% }) %>
+                          </div>
+
+
+
+    
+
+
+
+<% include ../partials/footer %>

@@ -1,0 +1,58 @@
+<% include ../partials/header %>
+    <style>
+    body{
+    background-color: #83d7fe;
+}
+element.style {
+    height: auto;
+}
+
+    </style>
+
+    <div class="well">
+    <div class="row">
+        <h1 style="text-align: center"><b>//ASK//SAY//CONFESS//</b></h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/users/1/<%= user._id %>/comments" method="POST">
+                <div class="form-group" >
+                
+                    <input class="form-control" type="textarea" name="comment[text]" placeholder="text" id="txtArea" required>
+                    
+                </div>
+                <div class="form-group text-right">
+                <input type="checkbox" id="ano" name="ano" value="checked">
+                  <label for="ano" >Type Anonymously</label>
+                     </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-danger btn-block">Submit!</button>
+                </div>
+            </form>
+            <div class="text-right">
+            <a href="/users/1/<%= user._id %>" >Go Back</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>0
+
+function autoExpand(textarea) {
+var textarea=document.querySelector("#txtArea")
+    // Reset field height
+    textarea.style.height = 'inherit';
+
+    // Get the computed styles for the element
+    var computed = window.getComputedStyle(field);
+
+    // Calculate the height
+    var height = parseInt(computed.getPropertyValue('border-top-width'), 10)
+                 + parseInt(computed.getPropertyValue('padding-top'), 10)
+                 + field.scrollHeight
+                 + parseInt(computed.getPropertyValue('padding-bottom'), 10)
+                 + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
+
+    field.style.height = height + 'px';
+
+};</script>
+   
+<% include ../partials/footer %>
+

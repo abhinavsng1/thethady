@@ -1,0 +1,265 @@
+<% include ./partials/header %>
+<body onLoad="DrawCaptcha();">
+<style>
+body{
+    background-color: #83d7fe;
+}
+.image-preview{
+    width:250px;
+   min-height:250px;
+    border:0px solid white;
+    border-radius:50%; 
+    margin-top:10px;
+    background:#9F9795;
+    
+
+    display:flex;
+    align-items:center;
+    justify-context:center;
+    
+    color:white;
+    
+
+}
+.image-preview__image{
+    display:none;
+    width:100%;
+}
+p{
+
+    margin-left:65px;
+    margin-top:auto;
+    font-size:1.30em;
+}
+
+
+.btn-sm{
+  padding:2px;
+  width:fit-content;
+}
+
+.captchaHeading{
+    padding-top:5px;
+  font-size:15px;
+}
+.verify{
+  width:52px;
+}
+.btn-primary{
+  margin-left:4px;
+}
+canvas{
+  display:table;
+}
+
+
+</style>
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center">Sign Up</h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/register" enctype="multipart/form-data" method="post"  name="myForm">
+            
+                <div class="form-group">
+                    <input class="form-control" type="text" name="name" placeholder="name">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="username" placeholder="username">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="password" name="password" placeholder="password">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="password" name="password1" placeholder="Confirm password">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="batchof" placeholder="BatchOf" maxlength="4">
+                </div>
+                 <div class="form-group">
+                    <input class="form-control" type="text" name="insta" placeholder="Instagram username">
+                </div>
+                 <div class="form-group">
+                    <input class="form-control" type="text" name="bio" placeholder="Bio" maxlength="100" required >
+                </div>
+                
+                 <div class="form-group">
+                   <input class="form-control" type="file" name="profileimage" id="inpFile" required>
+                   <div class="image-preview" id="imagePreview">
+                   <img src="" alt="   Upload profile picture" class="image-preview__image img-circle">
+                   <span class="image-preview__default-text" class="image-preview__image"><p>Profile Picture</p>
+                        </span>
+
+                       
+                   </div>
+                </div>
+                <div class="form-group">
+                   <label for="status">Relationship Status</label>
+
+                    <select id="status" name="status">
+                    <option value="Single">Single</option>
+                    <option value="In relationship">In relationship</option>
+                    <option value="Dating Someone">Dating Someone</option>
+                    <option value="Looking after">Loooking after</option>
+                     <option value="On a break">On a break</option>
+                     <option value="Not Interested">Not Interested</option>
+
+                    </select>
+                </div>
+                  <div class="form-group " id="captcha">
+                  
+                   <div class="captchaDetail row">
+
+              
+                    <div class="col-sm-12">
+
+                    <table>
+                    <tr>
+                    <td><canvas id="canvas" width="165px" height="20px" onLoad="DrawCaptcha();"></canvas></td>
+                    <td><input type="button" id="btnrefresh" value="Refresh" onclick="DrawCaptcha();" class="btn btn-primary btn-sm verify" /></td>
+
+                    </tr>
+
+
+                    </table>        
+     
+    
+        </div> 
+    
+
+        
+      <div class="col-sm-12">
+      <table>
+      <tr>
+
+      <td>  <input type="text" name="captchaCheck" id="txtInput" placeholder="Enter Captcha here"/>    </td>
+    
+    
+      <td>  <input id="Button1" type="button" value="Verify" onclick="validCaptcha()"class="btn btn-success btn-sm verify"/></td>
+        </tr>
+        </table>
+        </div>
+    
+</div>
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <button id="register" class="btn btn-lg btn-danger btn-block" disabled>Sign Up!</button>
+                </div>
+            </form>
+            <a href="/">Go Back</a>
+        </div>
+    </div>
+</div>
+<script>
+                       const inpFile=document.getElementById("inpFile");
+                       const previewContainer=document.getElementById("imagePreview");
+                       const previewImage=previewContainer.querySelector(".image-preview__image");
+                       const previewDefaultText=previewContainer.querySelector(".image-preview__default-text");
+                       inpFile.addEventListener("change",function(){
+                       const file=this.files[0];
+                       console.log(file)
+                       if(file){
+                       const reader=new FileReader();
+                       previewDefaultText.style.display="none";
+                       previewImage.style.display="block";
+                        previewImage.style.background="#83d7fe"
+                       reader.addEventListener("load",function(){
+                            previewImage.setAttribute("src",this.result);
+
+                       })
+                       reader.readAsDataURL(file);
+                       }else{
+                       previewDefaultText.display.style=null;
+                       previewImage.style.display=null;
+                       previewImage.setAttribute("src","")
+                       }
+
+                       })
+                       </script>
+<script>
+
+var code="hello"
+     
+    function DrawCaptcha()
+    {       var c = document.getElementById("canvas");
+            var ctx = c.getContext("2d");
+            ctx.font = "15px Arial";
+            ctx.clearRect(0, 0, 165, 20);
+            
+
+        
+        var a = Math.ceil(Math.random() * 9)+ '';
+        var b = Math.ceil(Math.random() * 9)+ '';       
+        var c = Math.ceil(Math.random() * 9)+ '';  
+        var d = Math.ceil(Math.random() * 9)+ '';  
+        var e = Math.ceil(Math.random() * 9)+ '';  
+        var f = Math.ceil(Math.random() * 9)+ '';  
+        var g = Math.ceil(Math.random() * 9)+ '';  
+        code = a +b  +  c + d + e + f  + g;
+        ctx.fillText(code,50,15)
+
+    }
+
+     
+    function validCaptcha(){
+        
+        var str2 = removeSpaces(document.getElementById('txtInput').value);
+        if (code== str2) {document.getElementById("register").disabled = false;
+       return true;
+
+        }  else{      
+        document.getElementById("register").disabled =true;
+        return false;
+        
+        }
+    }
+
+    
+    function removeSpaces(string)
+    {
+        return string.split(' ').join('');
+    }
+
+
+
+
+
+
+
+
+</script>
+<script>
+function validationErrors(){
+  var x = document.forms["myForm"]["name"].value;
+  if(x=="")
+  {return false;
+  }
+  
+
+   var y = document.forms["myForm"]["username"].value;
+  if(y==""){return false;}
+  
+   var p = document.forms["myForm"]["password"].value;
+  var q=document.forms["myForm"]["password1"].value;
+  if(p!=q){
+  alert("Password doesn't matches")
+  return false;
+  }
+     if(!validCaptcha())
+{
+ return false; 
+}
+  return true;
+}
+
+
+
+</script>
+
+
+</body>
+<% include ./partials/footer %>
+

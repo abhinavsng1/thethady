@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>thady.com</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/stylesheets/main.css">
+       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+       <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-git2.min.js"></script>
+
+    </head>
+    <body>
+        <style type="text/css">
+            .chat{
+                color: white;
+            }
+
+        </style>
+    <nav class="navbar" style="background-color: #000000">
+        
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">thady.com</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <% if(!currentUser){ %>
+                        <li><a href="/faq">FAQs</a></li>
+                        <li><a href="/login"><i class="fas fa-sign-in-alt"></i>SignIN</a></li>
+                        <li><a href="/register"><i class="fas fa-user-plus"></i>SignUP</a></li>
+                        
+                    <% } else { %>
+                            
+                             
+                         <li><a href="/users/1">Feed</a></li>
+                        <li><a href="/users/1/<%=currentUser._id%>"><%= currentUser.username %></a></li>
+                        <li><a href="http://parodychat.herokuapp.com/">Chatbox</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                    <% } %>
+                </ul>
+            </div>
+       
+    </nav>
+    
+    <div class="container">
+       <% if(error && error.length > 0) { %>
+         <div class="alert alert-danger"><p><%=error %></p></div>
+       <% } %>
+       
+       <% if(success && success.length > 0) { %>
+         <div class="alert alert-success"><p><%= success %></p></div>
+       <% } %>
+    </div>
+    <div class="container">
+       
