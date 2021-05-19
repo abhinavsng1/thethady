@@ -22,9 +22,9 @@ var commentRoutes    = require("./routes/comments"),
     userRoutes = require("./routes/users"),
     indexRoutes      = require("./routes/index")
     
-mongoose.connect("mongodb+srv://abhinav:tByFCoryPd4nZSf1@cluster0-yebob.mongodb.net/test?retryWrites=true&w=majority",{useNewUrlParser: true,useCreateIndex:true, useUnifiedTopology: true });
+mongoose.connect("mongodb+srv://:tByFCoryPd4nZSf1@cluster0-yebob.mongodb.net/test?retryWrites=true&w=majority",{useNewUrlParser: true,useCreateIndex:true, useUnifiedTopology: true });
 
-//mongoose.connect("mongodb+srv://abhinav:tByFCoryPd4nZSf1@cluster0-yebob.mongodb.net/test?retryWrites=true&w=majority",{useNewUrlParser:true,useUnifiedTopology:true})
+
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -39,7 +39,7 @@ app.use(cookieParser('secret'));
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
-    secret: "Once again Rusty wins cutest dog!",
+    secret: "We don't share secrets here",
     resave: false,
     saveUninitialized: false
 }));
@@ -63,10 +63,7 @@ app.use("/", indexRoutes);
 app.use("/users", userRoutes);
 app.use("/users/1/:id/comments", commentRoutes);
 
-//app.listen(process.env.PORT, process.env.IP, function(){
-//   console.log("The  Server Has Started!");
-//});
-
-app.listen(process.env.port, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
    console.log("The  Server Has Started!");
 });
+
