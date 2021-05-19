@@ -7,22 +7,7 @@ var User=require("../models/user")
 var moment=require("moment");
 
 
-// router.get("/", function(req, res){
-//     // Get all  from DB
-//     User.find({}, function(err, allUser){
-//        if(err){
-//            console.log(err);
-//        } else {
-//            request('https://maps.googleapis.com/maps/api/geocode/json?address=sardine%20lake%20ca&key=AIzaSyBtHyZ049G_pjzIXDKsJJB5zMohfN67llM', function (error, response, body) {
-//             if (!error && response.statusCode == 200) {
-//                  // Show the HTML for the Modulus homepage.
-//                 res.render("users/index",{users:allUser});
 
-//             }
-// });
-//        }
-//     });
-// });
 
 router.get("/:page",function(req,res,next){
   var page=req.params.page||1
@@ -85,9 +70,9 @@ router.get("/1/:id", function(req, res){
         }
     });
 });
-//delete the id
 
-// DESTROY CAMPGROUND ROUTE
+
+//delete the id
 router.delete("/1/:id", function(req, res){
    User.findByIdAndRemove(req.params.id, function(err){
       if(err){
@@ -123,9 +108,9 @@ router.get("/1/:id/edit", function(req, res){
 
 
 //user update
-// UPDATE CAMPGROUND ROUTE
+
 router.put("/1/:id", function(req, res){
-    // find and update the correct campground
+    // find and update the correct 
     User.findByIdAndUpdate(req.params.id, req.body.user, function(err, updatedUser){
        if(err){
            res.redirect("/users/1");
